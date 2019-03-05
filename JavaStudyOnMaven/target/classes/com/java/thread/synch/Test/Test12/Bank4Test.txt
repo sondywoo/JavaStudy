@@ -1,0 +1,140 @@
+package com.java.thread.synch;
+
+/**
+ * 3. 加锁机制2. - 加锁的银行系统 - Synchronized关键字
+ *     从JDK 1.0开始，Java中每个对象都有一个隐式的锁。如果一个方法由"synchronized"关键字声明，那么对象的锁将保护整个方法；
+ * 否则，则对象的锁是隐藏状态。
+ * This program shows data corruption when multiple threads access a data structure.
+ * 
+ * 两种机制来保护代码块不受并行访问的干扰：
+ *     1. 旧版本的Java使用Synchronized关键字
+ *     2. JDK 5.0引进了ReentrantLock类
+ *     3. 阻塞队列 java.util.concurrent.BlockingQueue，目前最常用
+ */
+public class Bank4Test {
+	public static final int NACCOUNTS = 100;
+	public static final double INITIAL_BALANCE = 1000;
+	
+	public static void main(String[] args) {
+		Bank4 b = new Bank4(NACCOUNTS, INITIAL_BALANCE);
+		
+		for(int i = 0; i < NACCOUNTS; i++){
+			TransferRunnable4 r = new TransferRunnable4(b, i, INITIAL_BALANCE);
+			Thread t = new Thread(r);
+			t.start();
+		}
+	}
+}
+
+/**
+ * A bank with a number of bank accounts.
+ */
+class Bank4{
+	private final double[] accounts;
+	
+	/**
+	 * Constructs the Bank4.
+	 * @param n the number of accounts
+	 * @param initialBalance the initial balance for each account.
+	 */
+	public Bank4(int n, double initialBalance){
+		accounts = new double[n];
+		for(int i = 0; i < accounts.length; i++){
+			accounts[i] = initialBalance;
+		}
+	}
+	
+	/**
+	 * Transfers money from one account to another.
+	 * @param from the account to transfer from.
+	 * @param to the account to transfer to.
+	 * @param amount the amount to transfer.
+	 * @throws InterruptedException 
+	 */
+	//	1. 用"synchronized"关键字声明该方法为 同步方法
+	public synchronized void transfer(int from, int to, double amount) throws InterruptedException{
+		
+		try{
+			//	2. 导致线程进入等待状态直到被Notify。该方法只能在同步方法/同步块内部调用，否则抛出IllegalMonitorStateException异常
+			while(accounts[from] < amount)
+				wait();
+			
+			//	void wait(long millis)
+			//	void wait(long millis, int nanos)
+			//		millis	- 毫秒数
+			//		nanos	- 纳秒数 < 1,000,000
+			//	导致线程进入等待状态直到被Notify或经过指定的时间。
+			//	这些方法只能在同步方法/同步块内部调用，否则抛出IllegalMonitorStateException异常
+			
+			//	3. 处理并行执行所要处理的业务
+			System.out.print(Thread.currentThread());
+			accounts[from] -= amount;
+			System.out.printf("\t%10.2f from %d to %d", amount, from, to);
+			accounts[to] += amount;
+			System.out.printf("\tTotal Balance: %10.2f%n", getTotalBalance());
+			
+			//	4. 解除在该对象上调用wait的线程的阻塞状态。该方法只能在同步方法/同步块内部调用，否则抛出IllegalMonitorStateException异常
+			notifyAll();
+			
+			//	void notify() - 随机选择一个在该对象上调用wait的线程，解除它的阻塞状态
+			//	该方法只能在同步方法/同步块内部调用，否则抛出IllegalMonitorStateException异常
+		}finally{
+			
+		}
+	}
+	
+	/**
+	 * Gets the sum of all account balances.
+	 * @return the total balance.
+	 */
+	public double getTotalBalance(){
+		double sum = 0;
+		for(double a : accounts){
+			sum += a;
+		}
+		return sum;
+	}
+	
+	/**
+	 * Gets the number of accounts in the Bank4.
+	 * @return the number of accounts.
+	 */
+	public int size(){
+		return accounts.length;
+	}
+}
+
+/**
+ * A runnable that transfers money from an account to other accounts in a Bank4.
+ */
+class TransferRunnable4 implements Runnable{
+	private Bank4 bank4;
+	private int fromAccount;
+	private double maxAmount;
+	private int DELAY = 10;
+	
+	/**
+	 * Constructs a transfer runnable.
+	 * @param b the Bank4 between whose account money is transferred.
+	 * @param from the account to transfer money from.
+	 * @param max the maximum amount of money in each transfer.
+	 */
+	public TransferRunnable4(Bank4 b, int from, double max){
+		bank4 = b;
+		fromAccount = from;
+		maxAmount = max;
+	}
+	
+	public void run(){
+		try{
+			while(true){
+				int toAccount = (int) (bank4.size() * Math.random());
+				double amount = 1000;//maxAmount * Math.random();
+				bank4.transfer(fromAccount, toAccount, amount);
+				Thread.sleep((int) (DELAY * Math.random()));
+			}
+		}catch(InterruptedException e){
+			
+		}
+	}
+}
