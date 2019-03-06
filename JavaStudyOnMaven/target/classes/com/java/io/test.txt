@@ -1,2 +1,0 @@
-This is a temporary file for testing IO.
-这是中文字。
