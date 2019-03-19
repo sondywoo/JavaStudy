@@ -21,8 +21,8 @@ public class TestSingleton {
 		System.out.println(singleton11.equals(singleton12) + " - singleton11.equals(singleton12)");
 		System.out.println((singleton11 == singleton12) + " - singleton11 == singleton12");
 
-		Singleton2 singleton21 = Singleton2.getInstance();
-		Singleton2 singleton22 = Singleton2.getInstance();
+		Singleton2 singleton21 = Singleton2.getInstance2();
+		Singleton2 singleton22 = Singleton2.getInstance2();
 		System.out.println(singleton21.equals(singleton22) + " - singleton21.equals(singleton22)");
 		System.out.println((singleton21 == singleton22) + " - singleton21 == singleton22");
 
@@ -36,7 +36,7 @@ public class TestSingleton {
 //		System.out.println(singleton41.getClass().getName());
 //		System.out.println(singleton41.equals(singleton42) + " - singleton41.equals(singleton42)");
 //		System.out.println((singleton41 == singleton42) + " - singleton41 == singleton42");
-//		
+//
 //		Singleton4.registerSingleton("childSingleton45", new ChildSingleton44());
 	}
 }
