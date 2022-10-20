@@ -21,7 +21,11 @@ import java.util.concurrent.BlockingQueue;
  *     1. 旧版本的Java使用Synchronized关键字
  *     2. JDK 5.0引进了ReentrantLock类
  *     3. 阻塞队列 java.util.concurrent.BlockingQueue，目前最常用
- *     
+ *
+ * 阻塞队列 特点：
+ * 	   当队列中没有数据的情况下，消费者端的所有线程都会被自动阻塞（挂起），直到有数据放入队列，线程被自动唤醒。
+ * 	   当队列中填满数据的情况下，生产者端的所有线程都会被自动阻塞（挂起），直到队列中有空的位置，线程被自动唤醒。
+ *
  * API: 
  * java.util.concurrent包提供了4种 阻塞队列 的实现：
  * 	 - ArrayBlockingQueue(int capacity)
@@ -61,7 +65,8 @@ public class BlockingQueueTest {
 //		String directory = in.nextLine();
 //		System.out.print("Enter keyword(e.g. volatile): ");
 //		String keyword = in.nextLine();
-		String directory = "E:/Project/Workspace/JavaStudy/src/com/java/thread/synch/Test";
+//		String directory = "E:/Project/Workspace/JavaStudy/src/com/java/thread/synch/Test";
+		String directory = "/Users/sondywoo/sondy/project/wsJava/JavaStudy/src/main/java/com/java/thread/synch/Test";
 		String keyword = "final int";
 		
 		final int FILE_QUEUE_SIZE = 10;
@@ -167,6 +172,8 @@ class SearchTask implements Runnable{
 			while(!done){
 				File file = queue.take();
 				if(file == FileEnumerationTask.DUMMY){
+					System.out.println("SearchTask thread sleeping 10s......");
+					Thread.sleep(10000);
 					queue.put(file);
 					done = true;
 				}else{

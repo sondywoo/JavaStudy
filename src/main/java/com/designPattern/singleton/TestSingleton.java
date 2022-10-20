@@ -31,12 +31,21 @@ public class TestSingleton {
 		System.out.println(singleton31.equals(singleton32) + " - singleton31.equals(singleton32)");
 		System.out.println((singleton31 == singleton32) + " - singleton31 == singleton32");
 
-//		Singleton4 singleton41 = Singleton4.getInstance();
-//		Singleton4 singleton42 = Singleton4.getInstance();
-//		System.out.println(singleton41.getClass().getName());
-//		System.out.println(singleton41.equals(singleton42) + " - singleton41.equals(singleton42)");
-//		System.out.println((singleton41 == singleton42) + " - singleton41 == singleton42");
+		Singleton4 singleton41 = Singleton4.getInstance();
+		Singleton4 singleton42 = Singleton4.getInstance();
+		System.out.println(singleton41.equals(singleton42) + " - singleton41.equals(singleton42)");
+		System.out.println((singleton41 == singleton42) + " - singleton41 == singleton42");
+
+//		Singleton5 singleton51 = Singleton5.getInstance();
+//		Singleton5 singleton52 = Singleton5.getInstance();
+//		System.out.println(singleton51.getClass().getName());
+//		System.out.println(singleton51.equals(singleton52) + " - singleton51.equals(singleton52)");
+//		System.out.println((singleton51 == singleton52) + " - singleton51 == singleton52");
 //
-//		Singleton4.registerSingleton("childSingleton45", new ChildSingleton44());
+//		Singleton5.registerSingleton("childSingleton45", new ChildSingleton44());
+
+
+		// 6. 此外还可以用枚举类型实现单例
+		// Ref: https://blog.csdn.net/cselmu9/article/details/51366946
 	}
 }

@@ -14,4 +14,7 @@ public class PrintCollection {
             System.out.println(o);
         }
     }
+    public static void printNumber(Collection<? extends Number> c){
+        print(c);
+    }
 }

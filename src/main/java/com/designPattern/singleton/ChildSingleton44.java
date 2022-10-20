@@ -1,5 +1,5 @@
 package com.designPattern.singleton;
 
-public class ChildSingleton44 extends Singleton4 {
+public class ChildSingleton44 extends Singleton5 {
 
 }

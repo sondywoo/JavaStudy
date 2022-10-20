@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.sql.DataSource;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.mysql.cj.jdbc.MysqlDataSource;
 
 /**
  * 	特点：
@@ -25,7 +25,7 @@ public class JdbcUtil2 extends JdbcUtil1{
 		System.out.println("static in JdbcUtil2");
 		try{
 			autoCreateJndiDatasource = false;
-			InputStream is = JdbcUtil2.class.getClassLoader().getResourceAsStream("resource/dbConfig.properties");
+			InputStream is = JdbcUtil2.class.getClassLoader().getResourceAsStream("dbConfig.properties");
 			dbConfig.load(is);
 			is.close();
 		}catch(Exception e){

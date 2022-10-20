@@ -23,6 +23,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  *   - newSingleThreadExecutor			只有1个线程的线程池，这个线程会顺序执行每个递交上来的任务
  *   - newScheduledThreadPool			为预定执行而构建的固定数量线程的线程池
  *   - newSingleThreadScheduledExecutor	为预定执行而构建的单线程的线程池
+ *   - newWorkStealingPool				内部构建 ForkJoinPool，利用 work-stealing 算法并行处理任务，不保证顺序。
  */
 public class ThreadPoolTest {
 
@@ -32,7 +33,7 @@ public class ThreadPoolTest {
 //		String directory = in.nextLine();
 //		System.out.print("Enter keyword(e.g. volatile): ");
 //		String keyword = in.nextLine();
-		String directory = "E:/Project/Workspace/JavaStudy/src/com/java/thread/synch/Test";
+		String directory = "/Users/sondywoo/sondy/project/wsJava/JavaStudy/src/main/java/com/java/thread/synch/Test";
 		String keyword = "final int";
 
 		// be different with FutureTest.java

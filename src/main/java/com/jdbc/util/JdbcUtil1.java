@@ -16,7 +16,7 @@ import javax.naming.Context;
 public class JdbcUtil1 {
 	static{
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 //			Class.forName("oracle.jdbc.driver.OracleDriver");
 		}catch(Exception e){
 			e.printStackTrace();

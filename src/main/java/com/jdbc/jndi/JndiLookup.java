@@ -11,7 +11,8 @@ import javax.naming.NameNotFoundException;
 import javax.sql.DataSource;
 
 import com.jdbc.util.JdbcUtil1;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.mysql.cj.jdbc.MysqlDataSource;	//8.0
+//import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class JndiLookup {
 

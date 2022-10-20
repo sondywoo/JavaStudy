@@ -1,0 +1,68 @@
+
+// Loop: while, for, foreach
+println("\n==================> Case 1:")
+var i = 0
+while (i<args.length){
+    println(args(i))
+    i += 1
+}
+
+println("\n==================> Case 2:")
+for(a <- args)
+    println(a)
+
+println("\n==================> Case 3:")
+for(i <- 0 to args.length-1)
+    println(args(i))
+
+println("\n==================> Case 4:")
+args.foreach((a: String) => println(a))
+
+println("\n==================> Case 5:")
+args.foreach(a => println(a))
+
+println("\n==================> Case 6:")
+args.foreach(println)
+
+
+// Test val var
+// val
+val finalVal = 0
+// failed to re-init val
+//finalVal = 1
+
+// var
+var finalVar = 0
+// succeeded to re-init var
+finalVar = 1
+
+// val array
+val finalArray = new Array[String](2)
+for(i <- 0 to finalArray.length-1) finalArray(i) = "val" + i;
+println("\n=======> 1st print array:")
+finalArray.foreach(println)
+for(i <- 0 to finalArray.length-1) finalArray(i) = "valAgain" + i;
+println("\n=======> 2nd print array:")
+finalArray.foreach(println)
+// failed to re-init val array, but its values can be changed.
+//finalArray = new Array[String](3)
+
+
+
+// Test List
+println("\n===================> Testing List ...")
+val l = List(1,2)
+println(l)
+val l2 = List(3,2)
+println(l:::l2)
+println(1::l) // 追加在表首，高效，推荐
+//println(l::1) //Failed, RIGHT side should be a List
+println(l:+1) // 追加在表尾，对大表来说低效
+//println(1:+l) //Failed, LEFT side should be a List
+
+//===================> Testing List ...
+//List(1, 2)
+//List(1, 2, 3, 2)
+//List(1, 1, 2)
+//List(1, 2, 1)
+

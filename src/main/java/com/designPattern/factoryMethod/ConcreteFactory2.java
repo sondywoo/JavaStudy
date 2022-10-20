@@ -12,7 +12,7 @@ public class ConcreteFactory2 implements IFactory{
 	private static Properties classPath = new Properties();
 	static{
 		try{
-			InputStream is = ConcreteFactory2.class.getClassLoader().getResourceAsStream("main/java/com/designPattern/factoryMethod/classPath.properties");
+			InputStream is = ConcreteFactory2.class.getClassLoader().getResourceAsStream("resource/classPath.properties");
 			classPath.load(is);
 			is.close();
 		}catch(Exception e){
